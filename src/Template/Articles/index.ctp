@@ -9,7 +9,7 @@
     </ul>
 </nav>
 <div class="articles index large-9 medium-8 columns content">
-    <h3><?= __('Articles') ?></h3>
+    <!-- <h3><?= __('Articles') ?></h3>
     <table cellpadding="0" cellspacing="0">
         <thead>
             <tr>
@@ -31,15 +31,26 @@
                 <td><?= h($article->modified) ?></td>
                 <td><?= $article->has('category') ? $this->Html->link($article->category->name, ['controller' => 'Categories', 'action' => 'view', $article->category->id]) : '' ?></td>
                 <td><?= $article->has('user') ? $this->Html->link($article->user->id, ['controller' => 'Users', 'action' => 'view', $article->user->id]) : '' ?></td>
+                <td></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $article->id]) ?>
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $article->id]) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $article->id], ['confirm' => __('Are you sure you want to delete # {0}?', $article->id)]) ?>
                 </td>
             </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            <?php endforeach; ?> -->
+            <!-- for que imprime o título de o conteúdo de cada post -->
+            <?php foreach ($articles as $article): ?>
+            <div class="row">
+                <header>
+                    <h2><?= h($article->title) ?></h2>                
+                </header>               
+                <article><p><?= $this->Text->autoParagraph(h($article->body)); ?></p></article>
+                <footer>
+                    <?= $article->has('category') ? $this->Html->link($article->category->name, ['controller' => 'Categories', 'action' => 'view', $article->category->id]) : '' ?>
+                </footer>
+            </div>        
+        <?php endforeach; ?>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->prev('< ' . __('previous')) ?>
